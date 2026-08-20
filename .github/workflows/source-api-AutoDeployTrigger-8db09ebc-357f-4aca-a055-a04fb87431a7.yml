@@ -4,22 +4,22 @@ name: Trigger auto deployment for source-api
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
+    branches:
       [ main ]
     paths:
-    - '**'
+    - 'source-api/**'
     - '.github/workflows/source-api-AutoDeployTrigger-8db09ebc-357f-4aca-a055-a04fb87431a7.yml'
 
-  # Allow manual trigger 
+  # Allow manual trigger
   workflow_dispatch:
-      
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout to the branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Azure Login
         uses: azure/login@v2
@@ -30,16 +30,10 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}/source-api
-          _dockerfilePathKey_: _dockerfilePath_
-          _targetLabelKey_: _targetLabel_
+          dockerfilePath: Dockerfile
           registryUrl: airag.azurecr.io
           registryUsername: ${{ secrets.SOURCEAPI_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.SOURCEAPI_REGISTRY_PASSWORD }}
           containerAppName: source-api
           resourceGroup: AI-POC-Avinash.Singh
           imageToBuild: airag.azurecr.io/source-api:${{ github.sha }}
-          
-            
-
-     
-
