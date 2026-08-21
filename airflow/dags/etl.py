@@ -92,7 +92,7 @@ default_args = {
 
 
 @dag(
-    dag_id="multi_source_etl",
+    dag_id="cust_sale_etlw",
     description="Reconciles customers (Postgres), orders (REST API), and "
                  "marketing spend (CSV) into a central warehouse table.",
     # NOTE: a bare cron string in Airflow 3 builds a CronTriggerTimetable, whose
