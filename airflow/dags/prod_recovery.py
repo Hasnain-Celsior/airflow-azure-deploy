@@ -2,7 +2,7 @@ from airflow.decorators import dag, task
 from datetime import datetime
 
 @dag(
-    dag_id="prod_recovery",
+    dag_id="claim_activity_extract",
     start_date=datetime(2026, 1, 1),
     schedule="@daily",
     catchup=False,
